@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
-  resources :replies
-  resources :comments
-  resources :meditations
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  namespace 'api' do
+    namespace 'v1' do 
+      resources :meditations do
+        resources :comments
+      end 
+      resources :comments do 
+        resources :replies 
+      end 
+    end 
+  end 
 end
