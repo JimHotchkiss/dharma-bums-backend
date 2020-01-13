@@ -2,7 +2,7 @@ module Api::V1
   class MeditationsController < ApplicationController
     def index 
       meditations = Meditation.all 
-      render json: { status: 'SUCCESS', message: 'loaded meditations', data: meditations } 
+      render json: MeditationSerializer.new(meditations) 
     end 
 
     def create 
@@ -16,7 +16,10 @@ module Api::V1
 
     def show 
       meditation = Meditation.find(params[:id]) 
-      render json: meditation, include: [:comments] 
+      # options = {
+      #   include: [:comments]
+      # }
+      render json: MeditationSerializer.new(meditation)
     end 
 
     def destroy 
