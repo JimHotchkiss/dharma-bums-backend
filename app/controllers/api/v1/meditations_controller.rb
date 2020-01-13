@@ -16,9 +16,6 @@ module Api::V1
 
     def show 
       meditation = Meditation.find(params[:id]) 
-      # options = {
-      #   include: [:comments]
-      # }
       render json: MeditationSerializer.new(meditation)
     end 
 
