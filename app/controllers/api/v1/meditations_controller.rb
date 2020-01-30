@@ -1,41 +1,41 @@
-module Api::V1 
+module Api::V1
   class MeditationsController < ApplicationController
-    def index 
-      meditations = Meditation.all 
-      render json: MeditationSerializer.new(meditations) 
-    end 
 
-    def create 
+    def index
+      meditations = Meditation.all
+      render json: MeditationSerializer.new(meditations)
+    end
+
+    def create
       meditation = Meditation.new(meditation_params)
       if meditation.save
         render json: meditation
-      else 
-        render json: {error: 'Error creating meditation group'} 
-      end 
-    end 
+      else
+        render json: {error: 'Error creating meditation group'}
+      end
+    end
 
-    def show 
-      meditation = Meditation.find(params[:id]) 
+    def show
+      meditation = Meditation.find(params[:id])
       render json: MeditationSerializer.new(meditation)
-    end 
+    end
 
-    def destroy 
+    def destroy
       meditation = Meditation.find(params[:id])
       meditation.destroy
-    end 
+    end
 
     def update
       meditation = Meditation.find(params[:id])
       meditation.update(theme: params[:meditation][:theme], duration: params[:meditation][:duration], organizer: [:meditation][:organizer])
       meditation.save
       render json: meditation
-    end 
+    end
 
-    private 
+    private
 
     def meditation_params
       params.require(:meditation).permit(:theme, :duration, :organizer)
-    end 
+    end
   end
-end 
-
+end
